@@ -1,7 +1,14 @@
 declare interface Player {
-    // id: number;
+    id: number;
     name: string;
     age: number;
     position: string;
-    // team_id: number | null
+    team_id: number | null
+}
+
+declare interface Team{
+    id: number;
+    name: string, 
+    slogan: string,
+    players?: number[]
 }

@@ -1,4 +1,5 @@
 import { useEffect, useState } from "react";
+import { useAppContext } from "../useAppContext/useAppContext";
 
 
 interface fetchPlayers<T> {
@@ -15,11 +16,13 @@ export const usePlayers = () => {
         error: null,
     });
 
+    const { setPlayers } = useAppContext();
+
     const url = "http://localhost:3001/api/players/available";
 
     const getPlayers = async () => {
         try {
-            const response = await fetch("http://localhost:3001/api/players/available");
+            const response = await fetch(url);
             if (!response.ok) throw new Error("Error en la petición");
             const result: Player[] = await response.json();
             setState((prevState) => ({
@@ -27,6 +30,7 @@ export const usePlayers = () => {
                 data: result,
                 loading: false,
               }));
+              setPlayers(result);
         } catch (err) {
             setState((prevState) => ({
                 ...prevState,
