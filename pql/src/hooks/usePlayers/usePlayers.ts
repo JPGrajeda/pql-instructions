@@ -65,6 +65,7 @@ export const usePlayers = () => {
 
     return {
         state,
-        deletePlayer
+        deletePlayer,
+        getPlayers
     };
 }

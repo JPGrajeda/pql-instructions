@@ -6,6 +6,7 @@ import { yupResolver } from "@hookform/resolvers/yup";
 import { useTeams } from "../hooks/useTeams/useTeams";
 import TeamDropdown from "../components/dropdown/TeamDropdown";
 import { useAppContext } from "../hooks/useAppContext/useAppContext";
+import { usePlayers } from "../hooks/usePlayers/usePlayers";
 
 interface propsHome {
 
@@ -13,6 +14,7 @@ interface propsHome {
 
 const Home = (props: propsHome) => {
     const { postTeam } = useTeams();
+    const { getPlayers } = usePlayers();
     const { teams, playersSelected } = useAppContext();
 
     const {
@@ -23,16 +25,18 @@ const Home = (props: propsHome) => {
         resolver: yupResolver(schema),
     });
 
-    const onSubmit = handleSubmit((data) => {
+    const onSubmit = handleSubmit(async (data) => {
 
         if (playersSelected.length === 0)
             return false;
 
-        postTeam({
+        await postTeam({
             name: data.name,
             slogan: data.description || null,
             players: playersSelected
         })
+
+        await getPlayers();
 
     });
 

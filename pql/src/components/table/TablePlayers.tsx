@@ -12,11 +12,9 @@ const abilities: Record<string, string[]> = {
 
 const columnHelper = createColumnHelper<Player>()
 
-
-
 const TablePlayers = () => {
-    const { state, deletePlayer } = usePlayers();
-    const { setPlayersSelected } = useAppContext();
+    const { deletePlayer } = usePlayers();
+    const { players, setPlayersSelected } = useAppContext();
     const [rowSelection, setRowSelection] = useState<Record<string, boolean>>({});;
 
     const columns = [
@@ -79,7 +77,7 @@ const TablePlayers = () => {
     ]
 
     const table = useReactTable({
-        data: state.data,
+        data: players,
         columns,
         getCoreRowModel: getCoreRowModel(),
         enableRowSelection: true,
