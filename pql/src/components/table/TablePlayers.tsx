@@ -3,67 +3,80 @@ import { createColumnHelper, flexRender, getCoreRowModel, useReactTable } from "
 import { usePlayers } from "../../hooks/usePlayers/usePlayers";
 import { useAppContext } from "../../hooks/useAppContext/useAppContext";
 
+const abilities: Record<string, string[]> = {
+    Seeker: ["Ability X", "Ability Y"],
+    Beater: ["Ability A", "Ability B"],
+    Keeper: ["Ability C", "Ability D"],
+    Chaser: ["Ability F", "Ability G"],
+};
 
 const columnHelper = createColumnHelper<Player>()
 
-const columns = [
-    columnHelper.accessor('name', {
-        cell: info => info.getValue(),
-    }),
-    columnHelper.accessor('age', {
-        header: () => 'Age',
-        cell: info => info.renderValue(),
-    }),
-    columnHelper.accessor('position', {
-        header: 'Profile Progress',
-    }),
-    columnHelper.display({
-        id: "specialAbility",
-        header: "Special Ability",
-        cell: (val) => (
-          <select className="form-select">
-            <option value="" disabled>Please choose an option</option>
-            <option value="powerx">PowerX</option>
-            <option value="powery">PowerY</option>
-          </select>
-        ),
-      }),
-    columnHelper.display({
-        id: "actions",
-        header: "Actions",
-        cell: (val) => (
-          <button type="button" className="btn btn-danger" onClick={() => console.log(val.row.original)}>
-            X
-          </button>
-        ),
-      }),
-    columnHelper.display({
-        id: "select",
-        header: ({ table }) => (
-            <input
-                type="checkbox"
-                {...{
-                    checked: table.getIsAllRowsSelected(),
-                    onChange: table.getToggleAllRowsSelectedHandler(),
-                }}
-            />
-        ),
-        cell: ({ row }) => (
-            <input
-                type="checkbox"
-                {...{
-                    checked: row.getIsSelected(),
-                    onChange: row.getToggleSelectedHandler(),
-                }}
-            />
-        ),
-    }),
-]   
+
 
 const TablePlayers = () => {
-    const { state } = usePlayers();
+    const { state, deletePlayer } = usePlayers();
     const { setPlayersSelected } = useAppContext();
     const [rowSelection, setRowSelection] = useState<Record<string, boolean>>({});;
+
+    const columns = [
+        columnHelper.accessor('name', {
+            cell: info => info.getValue(),
+        }),
+        columnHelper.accessor('age', {
+            header: () => 'Age',
+            cell: info => info.renderValue(),
+        }),
+        columnHelper.accessor('position', {
+            header: 'Profile Progress',
+        }),
+        columnHelper.display({
+            id: "specialAbility",
+            header: "Special Ability",
+            cell: (val) => (
+                <select className="form-select">
+                    {
+                        abilities[val.row.original.position].map((ability) => (
+                            <option key={ability} value={ability}>{ability}</option>
+                        ))
+                    }
+                </select>
+            ),
+        }),
+        columnHelper.display({
+            id: "actions",
+            header: "Actions",
+            cell: (val) => (
+                <button type="button" className="btn btn-danger" onClick={() => {
+                    deletePlayer(val.row.original.id)
+                }
+                }>
+                    X
+                </button>
+            ),
+        }),
+        columnHelper.display({
+            id: "select",
+            header: ({ table }) => (
+                <input
+                    type="checkbox"
+                    {...{
+                        checked: table.getIsAllRowsSelected(),
+                        onChange: table.getToggleAllRowsSelectedHandler(),
+                    }}
+                />
+            ),
+            cell: ({ row }) => (
+                <input
+                    type="checkbox"
+                    {...{
+                        checked: row.getIsSelected(),
+                        onChange: row.getToggleSelectedHandler(),
+                    }}
+                />
+            ),
+        }),
+    ]
 
     const table = useReactTable({
         data: state.data,

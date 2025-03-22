@@ -23,14 +23,14 @@ export const usePlayers = () => {
     const getPlayers = async () => {
         try {
             const response = await fetch(`${url}/players/available`);
-            if (!response.ok) throw new Error("Error en la petición");
+            if (!response.ok) throw new Error("Error");
             const result: Player[] = await response.json();
             setState((prevState) => ({
                 ...prevState,
                 data: result,
                 loading: false,
               }));
-              setPlayers(result);
+            setPlayers(result);
         } catch (err) {
             setState((prevState) => ({
                 ...prevState,
@@ -45,9 +45,18 @@ export const usePlayers = () => {
         }
     }
 
-    // const deletePlayer = async => {
+    const deletePlayer = async (id: number) => {
+        
+        const filterPlayers: Player[] = state.data ? state.data.filter(player => player.id !== id) : [];
 
-    // }
+        setState((prevState) => ({
+            ...prevState,
+            data: filterPlayers,
+            loading: false,
+          }));
+
+        setPlayers(filterPlayers);
+    }
 
     useEffect(() => {
         getPlayers();
@@ -55,6 +64,7 @@ export const usePlayers = () => {
 
 
     return {
-        state
+        state,
+        deletePlayer
     };
 }

@@ -3,7 +3,6 @@ import { useAppContext } from "../../hooks/useAppContext/useAppContext";
 
 const TeamDropdown = () => {
     const { teams } = useAppContext();
-    console.log("🚀 ~ TeamDropdown ~ teams:", teams)
 
     return (
         <React.Fragment>

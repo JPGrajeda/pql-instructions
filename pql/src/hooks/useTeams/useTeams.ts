@@ -23,7 +23,7 @@ export const useTeams = () => {
     const getTeams = async () => {
         try {
             const response = await fetch(`${url}/teams`);
-            if (!response.ok) throw new Error("Error en la petición");
+            if (!response.ok) throw new Error("Error");
             const result: Team[] = await response.json();
             setState((prevState) => ({
                 ...prevState,
@@ -56,7 +56,7 @@ export const useTeams = () => {
                     ...team
                 })
             });
-            if (!response.ok) throw new Error("Error en la petición");
+            if (!response.ok) throw new Error("Error");
             const result: { team_id: number, message: string } = await response.json();
             setState((prevState) => ({
                 ...prevState,

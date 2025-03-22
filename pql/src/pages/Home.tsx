@@ -4,7 +4,7 @@ import { useForm } from "react-hook-form";
 import { schema, FormData } from "../utils/teamSchema";
 import { yupResolver } from "@hookform/resolvers/yup";
 import { useTeams } from "../hooks/useTeams/useTeams";
-import TeamDropdown from "../components/dropdown/TeamDropdown ";
+import TeamDropdown from "../components/dropdown/TeamDropdown";
 import { useAppContext } from "../hooks/useAppContext/useAppContext";
 
 interface propsHome {
@@ -70,7 +70,10 @@ const Home = (props: propsHome) => {
                     <TablePlayers />
                 </div>
 
-                <input type="submit" className="btn btn-primary" />
+                <br />
+                <div className="d-grid gap-2 d-md-flex justify-content-md-end">
+                    <input type="submit" className="btn btn-primary right" value="Create Team"/>
+                </div>
             </form>
 
         </React.Fragment>
