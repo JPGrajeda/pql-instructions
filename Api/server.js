@@ -71,7 +71,7 @@ server.post('/api/teams', (req, res) => {
     });
 
     console.log("Team created successfully");
-    res.status(201).jsonp({ message: 'Team created successfully' });
+    res.status(201).jsonp({ team_id: teamId, message: 'Team created successfully' });
   } catch (error) {
     console.error("Error creating team: ", error);
 

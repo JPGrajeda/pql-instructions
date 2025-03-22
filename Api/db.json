@@ -4,21 +4,6 @@
       "id": 1,
       "name": "Gryffindor",
       "slogan": "Where dwell the brave at heart"
-    },
-    {
-      "id": 2,
-      "name": "Test",
-      "slogan": "Test"
-    },
-    {
-      "id": 3,
-      "name": "Test 2",
-      "slogan": "Test 2"
-    },
-    {
-      "id": 4,
-      "name": "Pedro Team",
-      "slogan": null
     }
   ],
   "players": [
@@ -48,21 +33,21 @@
       "name": "Draco Malfoy",
       "age": 11,
       "position": "Chaser",
-      "team_id": 2
+      "team_id": null
     },
     {
       "id": 5,
       "name": "Cedric Diggory",
       "age": 17,
       "position": "Seeker",
-      "team_id": 3
+      "team_id": null
     },
     {
       "id": 6,
       "name": "Cho Chang",
       "age": 16,
       "position": "Chaser",
-      "team_id": 3
+      "team_id": null
     },
     {
       "id": 7,
@@ -111,7 +96,7 @@
       "name": "Angelina Johnson",
       "age": 16,
       "position": "Chaser",
-      "team_id": 4
+      "team_id": null
     },
     {
       "id": 14,

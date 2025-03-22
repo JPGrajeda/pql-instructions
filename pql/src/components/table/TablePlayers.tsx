@@ -18,10 +18,21 @@ const columns = [
         header: 'Profile Progress',
     }),
     columnHelper.display({
+        id: "specialAbility",
+        header: "Special Ability",
+        cell: (val) => (
+          <select className="form-select">
+            <option value="" disabled>Please choose an option</option>
+            <option value="powerx">PowerX</option>
+            <option value="powery">PowerY</option>
+          </select>
+        ),
+      }),
+    columnHelper.display({
         id: "actions",
         header: "Actions",
         cell: (val) => (
-          <button type="button" className="btn btn-danger rounded-circle" onClick={() => console.log(val.row.original)}>
+          <button type="button" className="btn btn-danger" onClick={() => console.log(val.row.original)}>
             X
           </button>
         ),

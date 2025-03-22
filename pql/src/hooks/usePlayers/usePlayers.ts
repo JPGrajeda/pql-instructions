@@ -18,11 +18,11 @@ export const usePlayers = () => {
 
     const { setPlayers } = useAppContext();
 
-    const url = "http://localhost:3001/api/players/available";
+    const url = "http://localhost:3001/api";
 
     const getPlayers = async () => {
         try {
-            const response = await fetch(url);
+            const response = await fetch(`${url}/players/available`);
             if (!response.ok) throw new Error("Error en la petición");
             const result: Player[] = await response.json();
             setState((prevState) => ({
@@ -45,6 +45,9 @@ export const usePlayers = () => {
         }
     }
 
+    // const deletePlayer = async => {
+
+    // }
 
     useEffect(() => {
         getPlayers();
