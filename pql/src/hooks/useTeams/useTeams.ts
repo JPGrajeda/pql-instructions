@@ -1,34 +1,35 @@
-import { useEffect, useState } from "react";
+import { useState } from "react";
 
 
 interface fetchTeams<T> {
-    data: T;
+    data: T | null;
     loading: boolean;
     error: string | null;
 }
 
 export const useTeams = () => {
 
-    const [state, setState] = useState<fetchTeams<Player[]>>({
-        data: [],
+    const [state, setState] = useState<fetchTeams<Team>>({
+        data: null,
         loading: true,
         error: null,
     });
 
     const url = "http://localhost:3001/api/teams";
 
-    const postTeams = async () => {
+    const postTeams = async (team: Pick<Team, 'name' | 'slogan' |'players'>) => {
         try {
             const response = await fetch(url, {
                 method: "POST",
+                headers: {
+                    "Content-Type": "application/json"
+                },
                 body: JSON.stringify({
-                    "name": "Team 1",
-                    "slogan": "Slogan 1",
-                    "players": [1]
+                    ...team
                 })
             });
             if (!response.ok) throw new Error("Error en la petición");
-            const result: Player[] = await response.json();
+            const result: Team = await response.json();
             setState((prevState) => ({
                 ...prevState,
                 data: result,
@@ -48,8 +49,8 @@ export const useTeams = () => {
         }
     }
 
-
     return {
-        state
+        state,
+        postTeams
     };
 }

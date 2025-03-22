@@ -21,8 +21,8 @@ const columns = [
         id: "actions",
         header: "Actions",
         cell: (val) => (
-          <button onClick={() => console.log(val.row.original)}>
-            Delete
+          <button type="button" className="btn btn-danger rounded-circle" onClick={() => console.log(val.row.original)}>
+            X
           </button>
         ),
       }),
@@ -71,7 +71,7 @@ const TablePlayers = () => {
 
     return (
         <React.Fragment>
-            <table>
+            <table className="table">
                 <thead>
                     {table.getHeaderGroups().map(headerGroup => (
                         <tr key={headerGroup.id}>

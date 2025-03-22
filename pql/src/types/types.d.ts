@@ -9,6 +9,6 @@ declare interface Player {
 declare interface Team{
     id: number;
     name: string, 
-    slogan: string,
+    slogan: string | null,
     players?: number[]
 }
