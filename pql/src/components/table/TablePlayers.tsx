@@ -2,6 +2,7 @@ import React, { useEffect, useState } from "react";
 import { createColumnHelper, flexRender, getCoreRowModel, useReactTable } from "@tanstack/react-table";
 import { usePlayers } from "../../hooks/usePlayers/usePlayers";
 import { useAppContext } from "../../hooks/useAppContext/useAppContext";
+import { PlayerModal } from "../modal/PlayerModal";
 
 const abilities: Record<string, string[]> = {
     Seeker: ["Ability X", "Ability Y"],
@@ -13,9 +14,10 @@ const abilities: Record<string, string[]> = {
 const columnHelper = createColumnHelper<Player>()
 
 const TablePlayers = () => {
-    const { deletePlayer } = usePlayers();
+    // const { deletePlayer } = usePlayers();
     const { players, setPlayersSelected } = useAppContext();
-    const [rowSelection, setRowSelection] = useState<Record<string, boolean>>({});;
+    const [rowSelection, setRowSelection] = useState<Record<string, boolean>>({});
+    const [stateModalPlayer, setModalPlayer] = useState<{name: string}>({name: ''});
 
     const columns = [
         columnHelper.accessor('name', {
@@ -45,12 +47,30 @@ const TablePlayers = () => {
             id: "actions",
             header: "Actions",
             cell: (val) => (
-                <button type="button" className="btn btn-danger" onClick={() => {
-                    deletePlayer(val.row.original.id)
-                }
-                }>
-                    X
-                </button>
+                <React.Fragment>
+                    <button 
+                        type="button" 
+                        className="btn btn-primary" 
+                        data-bs-toggle="modal" 
+                        data-bs-target="#exampleModal"
+                        onClick={
+                            () => {
+                                setModalPlayer(() => ({
+                                    name: val.row.original.name
+                                }))
+                            }
+                        }
+                    >
+                        Launch demo modal
+                    </button>
+                </React.Fragment>
+
+                // <button type="button" className="btn btn-danger" onClick={() => {
+                //     deletePlayer(val.row.original.id)
+                // }
+                // }>
+                //     X
+                // </button>
             ),
         }),
         columnHelper.display({
@@ -93,6 +113,9 @@ const TablePlayers = () => {
 
     return (
         <React.Fragment>
+
+            <PlayerModal name={ stateModalPlayer.name } />
+
             <table className="table">
                 <thead>
                     {table.getHeaderGroups().map(headerGroup => (
