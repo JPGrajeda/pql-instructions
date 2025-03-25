@@ -11,7 +11,7 @@ interface fetchTeams<T> {
 export const useTeams = () => {
 
     const [state, setState] = useState<fetchTeams<Team[]>>({
-        data: null,
+        data: [],
         loading: true,
         error: null,
     });

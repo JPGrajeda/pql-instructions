@@ -45,6 +45,30 @@ export const usePlayers = () => {
         }
     }
 
+    const getPlayersUnavailable = async () => {
+        try {
+            const response = await fetch(`${url}/players/unavailable`);
+            if (!response.ok) throw new Error("Error");
+            const result: Player[] = await response.json();
+            setState((prevState) => ({
+                ...prevState,
+                data: result,
+                loading: false,
+              }));
+        } catch (err) {
+            setState((prevState) => ({
+                ...prevState,
+                error: (err as Error).message,
+                loading: false,
+              }));
+        } finally {
+            setState((prevState) => ({
+                ...prevState,
+                loading: false,
+              }));
+        }
+    }
+
     const deletePlayer = async (id: number) => {
         
         const filterPlayers: Player[] = state.data ? state.data.filter(player => player.id !== id) : [];
@@ -66,6 +90,7 @@ export const usePlayers = () => {
     return {
         state,
         deletePlayer,
-        getPlayers
+        getPlayers,
+        getPlayersUnavailable
     };
 }

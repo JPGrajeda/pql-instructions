@@ -46,7 +46,7 @@ const Player = (props: propsHome) => {
             {
                 teams.length > 0 &&
                 <React.Fragment>
-                    <div className="card">
+                    <div className="card p-3">
                         <TeamDropdown />
                     </div>
                     <br />

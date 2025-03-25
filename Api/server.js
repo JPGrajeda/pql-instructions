@@ -19,6 +19,16 @@ server.get('/api/players/available/', (req, res) => {
   res.jsonp(availablePlayers);
 });
 
+// Return all players that aren't available to be drafted by a team
+server.get('/api/players/unavailable/', (req, res) => {
+  // Get all players
+  let players = router.db.get('players').value();
+  // Filter out players without a team_id
+  let unavailablePlayers = players.filter(player => player.team_id !== null);
+
+  res.jsonp(unavailablePlayers);
+});
+
 
 /**
  * Customize POST /api/teams so after creating a team, the team_id is added to the players
