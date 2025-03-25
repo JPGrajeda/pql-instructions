@@ -11,7 +11,9 @@ export const errorRouter = [
     },
     {
       path: '/',
-      element: <div>error</div>,
+      element: <div className="d-flex d-flex justify-content-center">
+                <img src="/404.svg" alt="" />
+              </div>,
       children: [
         {
           path: "*",
