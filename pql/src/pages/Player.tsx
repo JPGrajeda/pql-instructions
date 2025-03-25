@@ -1,4 +1,4 @@
-import React from "react"
+import React, { use, useRef, useState } from "react"
 import TablePlayers from "../components/table/TablePlayers";
 import { useForm } from "react-hook-form";
 import { schema, FormData } from "../utils/teamSchema";
@@ -7,15 +7,16 @@ import { useTeams } from "../hooks/useTeams/useTeams";
 import TeamDropdown from "../components/dropdown/TeamDropdown";
 import { useAppContext } from "../hooks/useAppContext/useAppContext";
 import { usePlayers } from "../hooks/usePlayers/usePlayers";
+import { PlayerAddModal } from "../components/modal/PlayerAddModal";
 
 interface propsHome {
 
 }
 
 const Player = (props: propsHome) => {
-    const { postTeam } = useTeams();
-    const { getPlayers } = usePlayers();
-    const { teams, playersSelected } = useAppContext();
+    const [stateTeam, setTeam] = useState<{ nameTeam: string, descriptionTeam: string | null }>({ nameTeam: '', descriptionTeam: '' })
+    const modalRef = useRef<{ open: () => void; close: () => void } | null>(null);
+    const { teams } = useAppContext();
 
     const {
         register,
@@ -27,16 +28,24 @@ const Player = (props: propsHome) => {
 
     const onSubmit = handleSubmit(async (data) => {
 
-        if (playersSelected.length === 0)
-            return false;
+        modalRef.current?.open();
 
-        await postTeam({
-            name: data.name,
-            slogan: data.description || null,
-            players: playersSelected
-        })
+        setTeam((prevState) => ({
+            ...prevState,
+            nameTeam: data.name,
+            descriptionTeam: data.description || null
+        }));
 
-        await getPlayers();
+        // if (playersSelected.length === 0)
+        //     return false;
+
+        // await postTeam({
+        //     name: data.name,
+        //     slogan: data.description || null,
+        //     players: playersSelected
+        // })
+
+        // await getPlayers();
 
     });
 
@@ -76,9 +85,11 @@ const Player = (props: propsHome) => {
 
                 <br />
                 <div className="d-grid gap-2 d-md-flex justify-content-md-end">
-                    <input type="submit" className="btn btn-primary right" value="Create Team"/>
+                    <input type="submit" className="btn btn-primary right" value="Create Team" />
                 </div>
             </form>
+
+            <PlayerAddModal nameTeam={stateTeam.nameTeam} descriptionTeam={stateTeam.descriptionTeam} ref={modalRef} />
 
         </React.Fragment>
     )

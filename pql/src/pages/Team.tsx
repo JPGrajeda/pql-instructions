@@ -1,13 +1,13 @@
 import React, { use, useContext, useEffect } from "react"
-import { TableTeams } from "../components/table/TableTeams"
+// import { TableTeams } from "../components/table/TableTeams"
 // import { useAppContext } from "../hooks/useAppContext/useAppContext"
 import { useTeams } from "../hooks/useTeams/useTeams";
 import { usePlayers } from "../hooks/usePlayers/usePlayers";
 
-interface GroupByTeam {
-    team: Team;
-    player?: Player
-}
+// interface GroupByTeam {
+//     team: Team;
+//     player?: Player
+// }
 
 interface TeamKeyValueObj {
     [id: string]: string,
@@ -37,9 +37,7 @@ const Team = () => {
 
             acc[teamName].push({ ...player });
             return acc;
-        }, {} as Record<string, Player[]>) || {}; // Si es undefined, devolver un objeto vacío
-
-    console.log("🚀 ~ Team ~ groupedByTeam:", groupedByTeam)
+        }, {} as Record<string, Player[]>) || {};
 
     useEffect(() => {
         getPlayersUnavailable();

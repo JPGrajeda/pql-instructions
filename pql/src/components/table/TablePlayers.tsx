@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { createColumnHelper, flexRender, getCoreRowModel, useReactTable } from "@tanstack/react-table";
 import { useAppContext } from "../../hooks/useAppContext/useAppContext";
-import { PlayerModal } from "../modal/PlayerModal";
+import { PlayerRemoveModal } from "../modal/PlayerRemoveModal";
 
 const abilities: Record<string, string[]> = {
     Seeker: ["Ability X", "Ability Y"],
@@ -48,9 +48,9 @@ const TablePlayers = () => {
                 <React.Fragment>
                     <button 
                         type="button" 
-                        className="btn btn-primary" 
+                        className="btn btn-danger" 
                         data-bs-toggle="modal" 
-                        data-bs-target="#exampleModal"
+                        data-bs-target="#removePlayerModal"
                         onClick={
                             () => {
                                 setModalPlayer(() => ({
@@ -60,16 +60,9 @@ const TablePlayers = () => {
                             }
                         }
                     >
-                        Launch demo modal
+                        x
                     </button>
                 </React.Fragment>
-
-                // <button type="button" className="btn btn-danger" onClick={() => {
-                //     deletePlayer(val.row.original.id)
-                // }
-                // }>
-                //     X
-                // </button>
             ),
         }),
         columnHelper.display({
@@ -113,7 +106,7 @@ const TablePlayers = () => {
     return (
         <React.Fragment>
 
-            <PlayerModal namePlayer={ stateModalPlayer?.name ?? '' } idPlayer={stateModalPlayer?.id ?? 0} />
+            <PlayerRemoveModal namePlayer={ stateModalPlayer?.name ?? '' } idPlayer={stateModalPlayer?.id ?? 0} />
 
             <table className="table">
                 <thead>
