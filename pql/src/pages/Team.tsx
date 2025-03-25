@@ -52,7 +52,7 @@ const Team = () => {
                 Object.entries(groupedByTeam).map(([teamName, players]) => (
 
                     <ol className="list-group mb-2" key={teamName}>
-                        <li className="list-group-item d-flex justify-content-between align-items-start">
+                        <div className="list-group-item d-flex justify-content-between align-items-start">
                             <div className="ms-2 me-auto">
                                 <div className="fw-bold">{teamName}</div>
                                 {players.map(player => (
@@ -62,7 +62,7 @@ const Team = () => {
                                 ))}
                             </div>
                             <span className="badge text-bg-primary rounded-pill">{players.length}</span>
-                        </li>
+                        </div>
                     </ol>
 
 

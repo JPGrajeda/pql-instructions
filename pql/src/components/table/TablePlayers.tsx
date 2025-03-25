@@ -1,6 +1,5 @@
 import React, { useEffect, useState } from "react";
 import { createColumnHelper, flexRender, getCoreRowModel, useReactTable } from "@tanstack/react-table";
-import { usePlayers } from "../../hooks/usePlayers/usePlayers";
 import { useAppContext } from "../../hooks/useAppContext/useAppContext";
 import { PlayerModal } from "../modal/PlayerModal";
 
@@ -14,10 +13,9 @@ const abilities: Record<string, string[]> = {
 const columnHelper = createColumnHelper<Player>()
 
 const TablePlayers = () => {
-    // const { deletePlayer } = usePlayers();
     const { players, setPlayersSelected } = useAppContext();
     const [rowSelection, setRowSelection] = useState<Record<string, boolean>>({});
-    const [stateModalPlayer, setModalPlayer] = useState<{name: string}>({name: ''});
+    const [stateModalPlayer, setModalPlayer] = useState<{name: string, id: number}>();
 
     const columns = [
         columnHelper.accessor('name', {
@@ -56,7 +54,8 @@ const TablePlayers = () => {
                         onClick={
                             () => {
                                 setModalPlayer(() => ({
-                                    name: val.row.original.name
+                                    name: val.row.original.name,
+                                    id: val.row.original.id
                                 }))
                             }
                         }
@@ -114,7 +113,7 @@ const TablePlayers = () => {
     return (
         <React.Fragment>
 
-            <PlayerModal name={ stateModalPlayer.name } />
+            <PlayerModal namePlayer={ stateModalPlayer?.name ?? '' } idPlayer={stateModalPlayer?.id ?? 0} />
 
             <table className="table">
                 <thead>
@@ -161,6 +160,7 @@ const TablePlayers = () => {
                     ))}
                 </tfoot>
             </table>
+
         </React.Fragment>
     );
 }
