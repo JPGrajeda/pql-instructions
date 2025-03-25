@@ -1,14 +1,16 @@
 import './App.css'
 import 'bootstrap/dist/css/bootstrap.min.css';
 import { AppProvider } from './context/appContext/AppProvider'
-import Home from './pages/Home'
+import Home from './pages/Player'
+import { RouterProvider } from 'react-router';
+import { router } from './routes';
 
 function App() {
 
-  return (  
+  return (
     <>
       <AppProvider>
-        <Home />
+        <RouterProvider router={router} />
       </AppProvider>
     </>
   )

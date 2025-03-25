@@ -1,4 +1,4 @@
-import React, { useContext } from "react"
+import React from "react"
 import TablePlayers from "../components/table/TablePlayers";
 import { useForm } from "react-hook-form";
 import { schema, FormData } from "../utils/teamSchema";
@@ -12,7 +12,7 @@ interface propsHome {
 
 }
 
-const Home = (props: propsHome) => {
+const Player = (props: propsHome) => {
     const { postTeam } = useTeams();
     const { getPlayers } = usePlayers();
     const { teams, playersSelected } = useAppContext();
@@ -84,4 +84,4 @@ const Home = (props: propsHome) => {
     )
 }
 
-export default Home;
+export default Player;
