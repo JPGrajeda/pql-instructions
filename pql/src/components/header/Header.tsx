@@ -10,7 +10,7 @@ export const Header = () => {
                     <a className="navbar-brand" href="#">
 
                         <img
-                            src="../../../public/quidditch.png"
+                            src="/quidditch.png"
                             alt="Logo"
                             width="30"
                             height="24"

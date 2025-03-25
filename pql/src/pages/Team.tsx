@@ -13,10 +13,10 @@ interface TeamKeyValueObj {
     [id: string]: string,
 }
 
-export const Team = () => {
+const Team = () => {
     // const { players, teams, setTeams  } = useAppContext();
     const { state: teamState } = useTeams();
-    const { state: playerState, getPlayersUnavailable } = usePlayers();
+    const { statePlayersUnavailable, getPlayersUnavailable } = usePlayers();
 
     const teamKeyValue = teamState.data?.reduce<TeamKeyValueObj>((obj, team) => {
         obj[team.id] = team.name;
@@ -24,7 +24,7 @@ export const Team = () => {
     }, {} as TeamKeyValueObj) || {};
 
 
-    const groupedByTeam = playerState.data?.reduce<Record<string, Player[]>>(
+    const groupedByTeam = statePlayersUnavailable.data?.reduce<Record<string, Player[]>>(
         (acc, player) => {
 
             const teamName = player.team_id != null && teamKeyValue[player.team_id]
@@ -47,9 +47,6 @@ export const Team = () => {
 
     return (
         <React.Fragment>
-
-
-
 
             {
                 Object.entries(groupedByTeam).map(([teamName, players]) => (
@@ -86,3 +83,5 @@ export const Team = () => {
         </React.Fragment>
     )
 }
+
+export default Team;

@@ -16,6 +16,12 @@ export const usePlayers = () => {
         error: null,
     });
 
+    const [statePlayersUnavailable, setStatePlayersUnavailable] = useState<fetchPlayers<Player[]>>({
+        data: [],
+        loading: true,
+        error: null,
+    });
+
     const { setPlayers } = useAppContext();
 
     const url = "http://localhost:3001/api";
@@ -50,19 +56,19 @@ export const usePlayers = () => {
             const response = await fetch(`${url}/players/unavailable`);
             if (!response.ok) throw new Error("Error");
             const result: Player[] = await response.json();
-            setState((prevState) => ({
+            setStatePlayersUnavailable((prevState) => ({
                 ...prevState,
                 data: result,
                 loading: false,
               }));
         } catch (err) {
-            setState((prevState) => ({
+            setStatePlayersUnavailable((prevState) => ({
                 ...prevState,
                 error: (err as Error).message,
                 loading: false,
               }));
         } finally {
-            setState((prevState) => ({
+            setStatePlayersUnavailable((prevState) => ({
                 ...prevState,
                 loading: false,
               }));
@@ -91,6 +97,7 @@ export const usePlayers = () => {
         state,
         deletePlayer,
         getPlayers,
+        statePlayersUnavailable,
         getPlayersUnavailable
     };
 }
